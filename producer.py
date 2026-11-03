@@ -3,7 +3,7 @@ import asyncio
 
 
 async def send_one():
-    producer = AIOKafkaProducer(bootstrap_servers="localhost:9092")
+    producer = AIOKafkaProducer(bootstrap_servers="127.0.0.1:9092")
     # Get cluster layout and initial topic/partition leadership information
     await producer.start()
     try:

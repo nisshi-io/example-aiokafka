@@ -1,7 +1,7 @@
 set dotenv-load
 
-# teardown existing, start: minio, when ready create: tansu bucket, and then: tansu
-up: docker-compose-down minio-up minio-ready-local minio-local-alias minio-tansu-bucket tansu-up
+# teardown existing, start: minio, when ready create: nisshi bucket, and then: nisshi
+up: docker-compose-down minio-up minio-ready-local minio-local-alias minio-nisshi-bucket nisshi-up
 
 [private]
 docker-compose-up *args:
@@ -36,22 +36,22 @@ minio-mc +args: (docker-compose-exec "minio" "mc" args)
 minio-local-alias: (minio-mc "alias" "set" "local" "http://localhost:9000" "minioadmin" "minioadmin")
 
 [private]
-minio-tansu-bucket: (minio-mc "mb" "local/tansu")
+minio-nisshi-bucket: (minio-mc "mb" "local/nisshi")
 
 [private]
 minio-ready-local: (minio-mc "ready" "local")
 
 [private]
-tansu-up: (docker-compose-up "tansu")
+nisshi-up: (docker-compose-up "nisshi")
 
 [private]
-tansu-down: (docker-compose-down "tansu")
+nisshi-down: (docker-compose-down "nisshi")
 
 [private]
-topic-create topic: (docker-compose-exec "tansu" "/tansu" "topic" "create" topic)
+topic-create topic: (docker-compose-exec "nisshi" "/nisshi" "topic" "create" topic)
 
 [private]
-topic-delete topic: (docker-compose-exec "tansu" "/tansu" "topic" "delete" topic)
+topic-delete topic: (docker-compose-exec "nisshi" "/nisshi" "topic" "delete" topic)
 
 
 customer-topic-create: (topic-create "customer")
